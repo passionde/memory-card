@@ -100,13 +100,6 @@ def show_question():
     btn_ok.setText("Ответить")
 
 
-def start_test():
-    if btn_ok.text() == "Ответить":
-        show_result()
-    elif btn_ok.text() == "Следующий вопрос":
-        show_question()
-
-
 answers = [rbtn_1, rbtn_2, rbtn_3, rbtn_4]
 
 
@@ -124,8 +117,20 @@ def ask(question_txt, right_answer, wrong1, wrong2, wrong3):
     show_question()
 
 
+def show_correct(res):
+    lb_result.setText(res)
+    show_result()
+
+
+def check_answer():
+    if answers[0].isChecked():
+        show_correct("Правильно!")
+    elif answers[1].isChecked() or answers[2].isChecked() or answers[3].isChecked():
+        show_correct("Неправильно!")
+
+
 ask("2 + 2 = ?", "4", "6", "2", "-6")
-btn_ok.clicked.connect(start_test)
+btn_ok.clicked.connect(check_answer)
 
 main_win.show()
 app.exec_()
