@@ -4,6 +4,16 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QRadioButton, QGroupB
 
 from random import shuffle
 
+
+class Question():
+    def __init__(self, question_txt, right_answer, wrong_1, wrong_2, wrong_3):
+        self.question_txt = question_txt
+        self.right_answer = right_answer
+        self.wrong_1 = wrong_1
+        self.wrong_2 = wrong_2
+        self.wrong_3 = wrong_3
+
+
 app = QApplication([])
 main_win = QWidget()
 main_win.setWindowTitle("Memory Card")
@@ -103,16 +113,16 @@ def show_question():
 answers = [rbtn_1, rbtn_2, rbtn_3, rbtn_4]
 
 
-def ask(question_txt, right_answer, wrong_1, wrong_2, wrong_3):
+def ask(q):
     shuffle(answers)
 
-    answers[0].setText(right_answer)
-    answers[1].setText(wrong_1)
-    answers[2].setText(wrong_2)
-    answers[3].setText(wrong_3)
+    answers[0].setText(q.right_answer)
+    answers[1].setText(q.wrong_1)
+    answers[2].setText(q.wrong_2)
+    answers[3].setText(q.wrong_3)
 
-    question.setText(question_txt)
-    lb_correct.setText(right_answer)
+    question.setText(q.question_txt)
+    lb_correct.setText(q.right_answer)
     show_question()
 
 
@@ -128,7 +138,15 @@ def check_answer():
         show_correct("Неверно!")
 
 
-ask("2 + 2 = ?", "4", "6", "1", "-4")
+question_1 = Question(
+    "2 + 2 = ?",
+    "4",
+    "6",
+    "1",
+    "-4"
+)
+
+ask(question_1)
 btn_ok.clicked.connect(check_answer)
 
 
