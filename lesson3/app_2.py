@@ -2,6 +2,8 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QRadioButton, QGroupBox, QPushButton, QHBoxLayout, \
     QVBoxLayout, QButtonGroup
 
+from random import shuffle
+
 app = QApplication([])
 main_win = QWidget()
 main_win.setWindowTitle("Memory Card")
@@ -105,6 +107,24 @@ def start_test():
         show_question()
 
 
+answers = [rbtn_1, rbtn_2, rbtn_3, rbtn_4]
+
+
+def ask(question_txt, right_answer, wrong1, wrong2, wrong3):
+    shuffle(answers)
+
+    answers[0].setText(right_answer)
+    answers[1].setText(wrong1)
+    answers[2].setText(wrong2)
+    answers[3].setText(wrong3)
+
+    question.setText(question_txt)
+    lb_correct.setText(right_answer)
+
+    show_question()
+
+
+ask("2 + 2 = ?", "4", "6", "2", "-6")
 btn_ok.clicked.connect(start_test)
 
 main_win.show()
